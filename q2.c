@@ -101,6 +101,7 @@ void land_plane(Prateleiras *fila) {
   }
 }
 
+}
 // Pista 1: 0 - 1
 // Pista 2: 2 - 3
 //
