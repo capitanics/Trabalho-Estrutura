@@ -6,6 +6,10 @@
 
 // 4 prateleiras de aterrisagem (filas)
 //
+int tempo = 0;
+
+int avioes_aterrissados = 0;
+int avioes_decolados = 0;
 
 typedef struct aviao {
   int id;
@@ -96,10 +100,26 @@ void land_plane(Prateleiras *fila) {
   for (int i = 0; i < 4; i++) {
     if (fila->filas[i]->tamanho > 0) {
       remove_plane(fila->filas[i]);
+      avioes_aterrissados++;
       return;
     }
   }
 }
+
+double calcular_tempo_medio_aterrissagem() {
+    if (avioes_aterrissados == 0) {
+        return 0.0;
+    } else {
+        return (double)tempo/avioes_aterrissados;
+    }
+}
+
+double calcular_tempo_medio_decolagem(){
+    if (avioes_decolados == 0) {
+        return 0.0;
+    } else {
+        return (double)tempo/avioes_decolados;
+    }
 
 }
 // Pista 1: 0 - 1
@@ -129,7 +149,7 @@ int main() {
   receive_plane(&prateleiras);
   printf("%d", check_smallest_line(&prateleiras));
   while (true) {
-
+    tempo++;
     for (int i = 0; i < rand_planes; i++) {
       receive_plane(&prateleiras);
     }
@@ -137,7 +157,7 @@ int main() {
     // printf("%d", check_smallest_line(&prateleiras));
 
     // print_prateleiras(&prateleiras);
-
+    printf("%.2lf\n", calcular_tempo_medio_aterrissagem());
     sleep(1);
   }
   return 0;
